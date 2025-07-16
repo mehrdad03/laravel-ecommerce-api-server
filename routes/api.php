@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::get('/Payments', AdminPaymentController::class);
+    Route::apiResource('/Payments', AdminPaymentController::class);
 
     Route::apiResource('/categories', AdminCategoryController::class);
     Route::apiResource('/products', AdminProductController::class);
