@@ -20,4 +20,10 @@ Route::prefix('admin')->group(function () {
     Route::apiResource('/users', AdminUserController::class);
     Route::apiResource('/users', AdminUserController::class);
 
+    Route::prefix('product/{product}/gallery')->controller(\App\Http\Controllers\Admin\AdminProductGalleryController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::delete('{image}', 'destroy');
+    });
+
 });
