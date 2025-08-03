@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminPaymentController;
@@ -9,7 +10,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('admin')->group(function () {
+Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::apiResource('/Payments', AdminPaymentController::class);
@@ -26,4 +27,9 @@ Route::prefix('admin')->group(function () {
         Route::delete('{image}', 'destroy');
     });
 
+    Route::post('/logout', [AdminAuthController::class, 'logout']);
+    Route::get('/me', [AdminAuthController::class, 'me']);
+
 });
+
+Route::post('/admin/login', [AdminAuthController::class, 'login']);
