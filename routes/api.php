@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AdminPaymentController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,3 +35,23 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 });
 
 Route::post('/admin/login', [AdminAuthController::class, 'login']);
+
+
+
+/*************** Users Api ******************/
+
+Route::prefix('v1')->group(function () {
+
+    Route::post('/auth/register', [AuthController::class, 'register']);
+    Route::post('/auth/login', [AuthController::class, 'login']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/auth/logout', [AuthController::class, 'logout']);
+        Route::get('/me', [AuthController::class, 'me']);
+    });
+
+    Route::get('/categories', [CategoryController::class, 'parent']);
+    Route::get('/categories/{id}/children', [CategoryController::class, 'children']);
+
+
+});
