@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -52,6 +53,12 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/categories', [CategoryController::class, 'parent']);
     Route::get('/categories/{id}/children', [CategoryController::class, 'children']);
+
+
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/products/{id}', [ProductController::class, 'show']);
+
+
 
 
 });
