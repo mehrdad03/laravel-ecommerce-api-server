@@ -17,6 +17,7 @@ class ProductController extends Controller
             ->with(['category:id,name']);
 
 
+
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->get('category_id'));
         }

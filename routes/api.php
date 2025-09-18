@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +39,6 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 Route::post('/admin/login', [AdminAuthController::class, 'login']);
 
 
-
 /*************** Users Api ******************/
 
 Route::prefix('v1')->group(function () {
@@ -49,6 +49,12 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
         Route::get('/me', [AuthController::class, 'me']);
+
+        Route::get('/cart', [CartController::class, 'index']);
+        Route::post('/cart', [CartController::class, 'store']);
+        Route::put('/cart/{itemId}', [CartController::class, 'update']);
+        Route::delete('/cart/{itemId}', [CartController::class, 'destroy']);
+        Route::delete('/cart', [CartController::class, 'clear']);
     });
 
     Route::get('/categories', [CategoryController::class, 'parent']);
@@ -57,8 +63,6 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/{id}', [ProductController::class, 'show']);
-
-
 
 
 });
