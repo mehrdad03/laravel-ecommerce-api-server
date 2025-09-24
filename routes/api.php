@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,15 @@ Route::prefix('v1')->group(function () {
         Route::put('/cart/{itemId}', [CartController::class, 'update']);
         Route::delete('/cart/{itemId}', [CartController::class, 'destroy']);
         Route::delete('/cart', [CartController::class, 'clear']);
+
+        Route::prefix('orders')->group(function () {
+
+            Route::get('/', [OrderController::class, 'index']);
+            Route::get('/{id}', [OrderController::class, 'show']);
+            Route::post('/', [OrderController::class, 'store']);
+        });
+
+
     });
 
     Route::get('/categories', [CategoryController::class, 'parent']);
